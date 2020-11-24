@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all singers
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new singer
+    </h2>
+
+    <form action="/insert_singer" method="post">
+      <div>
+        <label for="room_id_box">
+          Room
+        </label>
+
+        <input type="text" id="room_id_box" name="query_room_id">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="next_songs_count_box">
+          Next songs count
+        </label>
+
+        <input type="text" id="next_songs_count_box" name="query_next_songs_count">
+      </div>
+
+      <button>
+        Create singer
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Room
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Next songs count
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_singers.each do |a_singer| %>
+      <tr>
+        <td>
+          <%= a_singer.id %>
+        </td>
+
+        <td>
+          <%= a_singer.room_id %>
+        </td>
+
+        <td>
+          <%= a_singer.user_id %>
+        </td>
+
+        <td>
+          <%= a_singer.next_songs_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_singer.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_singer.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/singers/<%= a_singer.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

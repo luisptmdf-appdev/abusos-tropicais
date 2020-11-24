@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Songs queue #<%= @the_songs_queue.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/songs_queues">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_songs_queue/<%= @the_songs_queue.id %>">
+          Delete songs queue
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Song
+      </dt>
+      <dd>
+        <%= @the_songs_queue.song_id %>
+      </dd>
+
+      <dt>
+        Singer
+      </dt>
+      <dd>
+        <%= @the_songs_queue.singer_id %>
+      </dd>
+
+      <dt>
+        Played
+      </dt>
+      <dd>
+        <%= @the_songs_queue.played %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_songs_queue.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_songs_queue.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit songs queue
+    </h2>
+
+    <form action="/modify_songs_queue/<%= @the_songs_queue.id %>"  method="post" >
+      <div>
+        <label for="song_id_box">
+          Song
+        </label>
+
+        <input type="text" id="song_id_box" name="query_song_id" value="<%= @the_songs_queue.song_id %>">
+      </div>
+
+      <div>
+        <label for="singer_id_box">
+          Singer
+        </label>
+
+        <input type="text" id="singer_id_box" name="query_singer_id" value="<%= @the_songs_queue.singer_id %>">
+      </div>
+
+      <div>
+        <input type="checkbox" id="played_box" name="query_played" value="1" <%= "checked" if @the_songs_queue.played %>>
+
+        <label for="played_box">
+            Played
+        </label>
+      </div>
+
+      <button>
+        Update songs queue
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

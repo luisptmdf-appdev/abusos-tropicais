@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Room #<%= @the_room.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/rooms">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_room/<%= @the_room.id %>">
+          Delete room
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Admin
+      </dt>
+      <dd>
+        <%= @the_room.admin_id %>
+      </dd>
+
+      <dt>
+        Singers count
+      </dt>
+      <dd>
+        <%= @the_room.singers_count %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_room.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_room.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit room
+    </h2>
+
+    <form action="/modify_room/<%= @the_room.id %>"  method="post" >
+      <div>
+        <label for="admin_id_box">
+          Admin
+        </label>
+
+        <input type="text" id="admin_id_box" name="query_admin_id" value="<%= @the_room.admin_id %>">
+      </div>
+
+      <div>
+        <label for="singers_count_box">
+          Singers count
+        </label>
+
+        <input type="text" id="singers_count_box" name="query_singers_count" value="<%= @the_room.singers_count %>">
+      </div>
+
+      <button>
+        Update room
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

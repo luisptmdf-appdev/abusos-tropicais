@@ -1,0 +1,116 @@
+<div>
+  <div>
+    <h1>
+      Song #<%= @the_song.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/songs">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_song/<%= @the_song.id %>">
+          Delete song
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_song.name %>
+      </dd>
+
+      <dt>
+        Artist
+      </dt>
+      <dd>
+        <%= @the_song.artist %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_song.user_id %>
+      </dd>
+
+      <dt>
+        Url
+      </dt>
+      <dd>
+        <%= @the_song.url %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_song.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_song.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit song
+    </h2>
+
+    <form action="/modify_song/<%= @the_song.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_song.name %>">
+      </div>
+
+      <div>
+        <label for="artist_box">
+          Artist
+        </label>
+
+        <input type="text" id="artist_box" name="query_artist" value="<%= @the_song.artist %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_song.user_id %>">
+      </div>
+
+      <div>
+        <label for="url_box">
+          Url
+        </label>
+
+        <input type="text" id="url_box" name="query_url" value="<%= @the_song.url %>">
+      </div>
+
+      <button>
+        Update song
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

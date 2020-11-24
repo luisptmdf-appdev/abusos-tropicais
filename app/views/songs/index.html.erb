@@ -1,0 +1,134 @@
+<div>
+  <div>
+    <h1>
+      List of all songs
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new song
+    </h2>
+
+    <form action="/insert_song" method="post">
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name">
+      </div>
+
+      <div>
+        <label for="artist_box">
+          Artist
+        </label>
+
+        <input type="text" id="artist_box" name="query_artist">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="url_box">
+          Url
+        </label>
+
+        <input type="text" id="url_box" name="query_url">
+      </div>
+
+      <button>
+        Create song
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table>
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Name
+        </th>
+
+        <th>
+          Artist
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Url
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_songs.each do |a_song| %>
+      <tr>
+        <td>
+          <%= a_song.id %>
+        </td>
+
+        <td>
+          <%= a_song.name %>
+        </td>
+
+        <td>
+          <%= a_song.artist %>
+        </td>
+
+        <td>
+          <%= a_song.user_id %>
+        </td>
+
+        <td>
+          <%= a_song.url %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_song.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_song.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/songs/<%= a_song.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
