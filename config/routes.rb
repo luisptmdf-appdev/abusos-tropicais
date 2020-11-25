@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-
+  # Home directs to sign in form:
+  get("/", { :controller => "rooms", :action => "index" })
+  
+  # ------------------------------
 
   # Routes for the User account:
 
