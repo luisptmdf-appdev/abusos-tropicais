@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all rooms
+      Home
     </h1>
   </div>
 </div>
@@ -11,26 +11,10 @@
 <div>
   <div>
     <h2>
-      Add a new room
+      Create a room
     </h2>
 
     <form action="/insert_room" method="post">
-      <div>
-        <label for="admin_id_box">
-          Admin
-        </label>
-
-        <input type="text" id="admin_id_box" name="query_admin_id">
-      </div>
-
-      <div>
-        <label for="singers_count_box">
-          Singers count
-        </label>
-
-        <input type="text" id="singers_count_box" name="query_singers_count">
-      </div>
-
       <button>
         Create room
       </button>
@@ -39,64 +23,57 @@
 </div>
 
 <hr>
+
 <div>
   <div>
-    <table>
-      <tr>
-        <th>
-          ID
-        </th>
+    <h2>
+      Re-join a room you left
+    </h2>
 
-        <th>
-          Admin
-        </th>
+    <form action="/re_join_room" method="post">
+      <div>
+        <label for="room_id_box">
+          Room
+        </label>
 
-        <th>
-          Singers count
-        </th>
+        <input type="text" id="room_id_box" name="query_room_id">
+      </div>
 
-        <th>
-          Created at
-        </th>
-
-        <th>
-          Updated at
-        </th>
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_rooms.each do |a_room| %>
-      <tr>
-        <td>
-          <%= a_room.id %>
-        </td>
-
-        <td>
-          <%= a_room.admin_id %>
-        </td>
-
-        <td>
-          <%= a_room.singers_count %>
-        </td>
-
-        <td>
-          <%= time_ago_in_words(a_room.created_at) %> ago
-        </td>
-        <td>
-          <%= time_ago_in_words(a_room.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/rooms/<%= a_room.id %>">
-            Show details
-          </a>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+      <button>
+        Re-join room
+      </button>
+    </form>
   </div>
 </div>
 
 <hr>
+
+<div>
+  <div>
+    <h2>
+      Join a room for the first time
+    </h2>
+
+    <form action="/join_room" method="post">
+      <div>
+        <label for="room_id_box">
+          Room
+        </label>
+
+        <input type="text" id="room_id_box" name="query_room_id">
+      </div>
+
+      <div>
+        <label for="room_password_id_box">
+          Room password
+        </label>
+
+        <input type="text" id="room_password_id_box" name="query_room_password_id">
+      </div>
+
+      <button>
+        Join room
+      </button>
+    </form>
+  </div>
+</div>

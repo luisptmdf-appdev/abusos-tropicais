@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FinalProject</title>
+    <title>Abusos Tropicais</title>
     <%= csrf_meta_tags %>
 
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
@@ -16,6 +16,28 @@
   </head>
 
   <body>
+    <% if @current_user != nil %>
+      <ul>
+        <li>
+          <a href="/edit_user_profile">Edit <%= @current_user.name %></a>
+        </li>
+        <li>
+          <a href="/user_sign_out">Sign Out</a>
+        </li>
+        <% if @current_singer != nil %>
+            <li>
+              <a href= <%= "/rooms/#{@current_singer.room.id}" %> >Go to my current room</a>
+            </li>
+        <% end %>
+      </ul>
+    <% end %>
+    
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

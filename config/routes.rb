@@ -49,6 +49,12 @@ Rails.application.routes.draw do
   # DELETE
   get("/delete_room/:path_id", { :controller => "rooms", :action => "destroy" })
 
+  # JOIN
+  post("/join_room", { :controller => "rooms", :action => "join" })
+
+  # RE-JOIN
+  post("/re_join_room", { :controller => "rooms", :action => "re_join" })
+
   #------------------------------
 
   # Routes for the Singer resource:

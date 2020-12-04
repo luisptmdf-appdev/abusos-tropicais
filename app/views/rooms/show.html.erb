@@ -1,54 +1,75 @@
+
+<div>
+  <h1>
+    Room #<%= @the_room.id %>
+  </h1>
+</div>
+
+<% if @current_singer.user_id == @current_singer.room.admin_id %>
+  <hr>
+  <div>
+    <h3>
+      Tell your fellow singers the following info so that they can join your room:
+    </h3>
+    <ul>
+      <li>
+        <b>Room: </b><%= @current_singer.room.id %>
+      </li>
+      <li>
+        <b>Room password: </b><%= @current_singer.room.password %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+
+<hr>
+
 <div>
   <div>
-    <h1>
-      Room #<%= @the_room.id %> details
-    </h1>
-
     <div>
-      <div>
-        <a href="/rooms">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_room/<%= @the_room.id %>">
-          Delete room
-        </a>
-      </div>
+      <a href="/rooms">
+        Go back
+      </a>
     </div>
 
-    <dl>
-      <dt>
-        Admin
-      </dt>
-      <dd>
-        <%= @the_room.admin_id %>
-      </dd>
-
-      <dt>
-        Singers count
-      </dt>
-      <dd>
-        <%= @the_room.singers_count %>
-      </dd>
-
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_room.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_room.updated_at) %> ago
-      </dd>
-    </dl>
+    <div>
+      <a href="/delete_room/<%= @the_room.id %>">
+        Delete room
+      </a>
+    </div>
   </div>
+
+  <dl>
+    <dt>
+      Admin
+    </dt>
+    <dd>
+      <%= @the_room.admin_id %>
+    </dd>
+
+    <dt>
+      Singers count
+    </dt>
+    <dd>
+      <%= @the_room.singers_count %>
+    </dd>
+
+    <dt>
+      Created at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_room.created_at) %> ago
+    </dd>
+
+    <dt>
+      Updated at
+    </dt>
+    <dd>
+      <%= time_ago_in_words(@the_room.updated_at) %> ago
+    </dd>
+  </dl>
 </div>
+
 
 <hr>
 
