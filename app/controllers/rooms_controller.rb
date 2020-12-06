@@ -23,8 +23,10 @@ class RoomsController < ApplicationController
     # Determine if user has entered the page specifically to play a song next and, in that case, sets @autoplay to 1 and updates previous song to played
     the_next_song_id = params.fetch("query_song_id", nil)
     play_next_song = params.fetch("query_play_next", nil)
-    if the_next_song_id != nil || play_next_song == "true"
-      @autoplay = 1
+    if the_next_song_id == nil && play_next_song == nil
+      @autoplay = "0"
+    else
+      @autoplay = "1"
       previous_song_id = session[:previous_song_id]
       if previous_song_id != nil
         previous_song = SongsQueue.where({ :id => previous_song_id.to_i }).first
@@ -34,8 +36,6 @@ class RoomsController < ApplicationController
           previous_song.save
         end
       end
-    else
-      @autoplay = 0
     end
 
     # Determine next song to appear in the youtube embedded frame
@@ -91,29 +91,29 @@ class RoomsController < ApplicationController
     end
   end
 
-  def update
-    the_id = params.fetch("path_id")
-    the_room = Room.where({ :id => the_id }).at(0)
+  # def update
+  #   the_id = params.fetch("path_id")
+  #   the_room = Room.where({ :id => the_id }).at(0)
 
-    the_room.admin_id = params.fetch("query_admin_id")
-    the_room.singers_count = params.fetch("query_singers_count")
+  #   the_room.admin_id = params.fetch("query_admin_id")
+  #   the_room.singers_count = params.fetch("query_singers_count")
 
-    if the_room.valid?
-      the_room.save
-      redirect_to("/rooms/#{the_room.id}", { :notice => "Room updated successfully."} )
-    else
-      redirect_to("/rooms/#{the_room.id}", { :alert => "Room failed to update successfully." })
-    end
-  end
+  #   if the_room.valid?
+  #     the_room.save
+  #     redirect_to("/rooms/#{the_room.id}", { :notice => "Room updated successfully."} )
+  #   else
+  #     redirect_to("/rooms/#{the_room.id}", { :alert => "Room failed to update successfully." })
+  #   end
+  # end
 
-  def destroy
-    the_id = params.fetch("path_id")
-    the_room = Room.where({ :id => the_id }).at(0)
+  # def destroy
+  #   the_id = params.fetch("path_id")
+  #   the_room = Room.where({ :id => the_id }).at(0)
 
-    the_room.destroy
+  #   the_room.destroy
 
-    redirect_to("/rooms", { :notice => "Room deleted successfully."} )
-  end
+  #   redirect_to("/rooms", { :notice => "Room deleted successfully."} )
+  # end
 
   def join
     the_room_id = params.fetch("query_room_id")

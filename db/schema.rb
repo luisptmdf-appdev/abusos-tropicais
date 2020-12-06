@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 2020_12_02_214721) do
   create_table "rooms", force: :cascade do |t|
     t.integer "admin_id"
     t.integer "singers_count"
+    t.integer "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "password"
   end
 
   create_table "singers", force: :cascade do |t|

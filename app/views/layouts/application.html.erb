@@ -19,15 +19,12 @@
     <% if @current_user != nil %>
       <ul>
         <li>
-          <a href="/edit_user_profile">Edit <%= @current_user.name %></a>
+          <a href="/edit_user_profile">Edit <%= @current_user.name %>'s profile</a>
         </li>
         <li>
           <a href="/user_sign_out">Sign Out</a>
         </li>
         <% if @current_singer != nil %>
-            <li>
-              <a href="/songs">SONGS</a>
-            </li>
             <li>
               <a href= <%= "/rooms/#{@current_singer.room.id}" %> >Go to my current room (<%= @current_singer.room.id.to_s %>)</a>
             </li>
@@ -43,7 +40,13 @@
         <%= msg %>
       </div>
     <% end %>
-
+    
+    <h1>
+      Home Karaoke - Abusos Tropicais
+    </h1>
+    
+    <hr>
+    
     <%= yield %>
   </body>
 </html>

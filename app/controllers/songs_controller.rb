@@ -4,30 +4,29 @@ class SongsController < ApplicationController
     @q = Song.ransack(params[:q])
     @list_of_songs = @q.result
     
-    # matching_songs = Song.all
-    # @list_of_songs = matching_songs.order({ :created_at => :desc })
-
     render({ :template => "songs/index.html.erb" })
   end
 
-  def show
-    the_id = params.fetch("path_id")
+  # def show
+  #   the_id = params.fetch("path_id")
 
-    matching_songs = Song.where({ :id => the_id })
+  #   matching_songs = Song.where({ :id => the_id })
 
-    @the_song = matching_songs.at(0)
+  #   @the_song = matching_songs.at(0)
 
-    render({ :template => "songs/show.html.erb" })
-  end
+  #   render({ :template => "songs/show.html.erb" })
+  # end
 
   def create
     the_song = Song.new
     the_song.name = params.fetch("query_name")
     the_song.artist = params.fetch("query_artist")
     the_song.user_id = @current_user.id
-    the_song.url = params.fetch("query_url")
+    the_song_url = params.fetch("query_url")
+    the_song.url = the_song_url
+    the_song_url_validation = YouTubeAddy.extract_video_id(the_song_url).class
 
-    if the_song.valid?
+    if the_song.valid? && the_song_url_validation == String
       the_song.save
       redirect_to("/songs", { :notice => "Song created successfully." })
     else
@@ -35,29 +34,29 @@ class SongsController < ApplicationController
     end
   end
 
-  def update
-    the_id = params.fetch("path_id")
-    the_song = Song.where({ :id => the_id }).at(0)
+  # def update
+  #   the_id = params.fetch("path_id")
+  #   the_song = Song.where({ :id => the_id }).at(0)
 
-    the_song.name = params.fetch("query_name")
-    the_song.artist = params.fetch("query_artist")
-    the_song.user_id = params.fetch("query_user_id")
-    the_song.url = params.fetch("query_url")
+  #   the_song.name = params.fetch("query_name")
+  #   the_song.artist = params.fetch("query_artist")
+  #   the_song.user_id = params.fetch("query_user_id")
+  #   the_song.url = params.fetch("query_url")
 
-    if the_song.valid?
-      the_song.save
-      redirect_to("/songs/#{the_song.id}", { :notice => "Song updated successfully."} )
-    else
-      redirect_to("/songs/#{the_song.id}", { :alert => "Song failed to update successfully." })
-    end
-  end
+  #   if the_song.valid?
+  #     the_song.save
+  #     redirect_to("/songs/#{the_song.id}", { :notice => "Song updated successfully."} )
+  #   else
+  #     redirect_to("/songs/#{the_song.id}", { :alert => "Song failed to update successfully." })
+  #   end
+  # end
 
-  def destroy
-    the_id = params.fetch("path_id")
-    the_song = Song.where({ :id => the_id }).at(0)
+  # def destroy
+  #   the_id = params.fetch("path_id")
+  #   the_song = Song.where({ :id => the_id }).at(0)
 
-    the_song.destroy
+  #   the_song.destroy
 
-    redirect_to("/songs", { :notice => "Song deleted successfully."} )
-  end
+  #   redirect_to("/songs", { :notice => "Song deleted successfully."} )
+  # end
 end

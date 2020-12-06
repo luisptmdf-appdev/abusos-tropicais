@@ -2,6 +2,8 @@ namespace :slurp2 do
   desc "TODO"
   task singers: :environment do
     
+    Singer.destroy_all
+
     require "csv"
     csv_text = File.read(Rails.root.join("lib", "csvs", "Singers.csv"))
     csv = CSV.parse(csv_text, :headers => true, :encoding => "ISO-8859-1")
