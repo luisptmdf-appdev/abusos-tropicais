@@ -52,3 +52,7 @@ end
 group :production do
   gem 'pg'
 end
+
+# Added by me:
+gem 'ransack'
+gem 'youtube_addy'

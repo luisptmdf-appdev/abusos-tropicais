@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  # Home directs to sign in form:
+  # Home directs to rooms (except if user not signed in):
   get("/", { :controller => "rooms", :action => "index" })
   
   # ------------------------------
@@ -54,6 +54,9 @@ Rails.application.routes.draw do
 
   # RE-JOIN
   post("/re_join_room", { :controller => "rooms", :action => "re_join" })
+
+  # LEAVE
+  get("/leave_room", { :controller => "rooms", :action => "leave" })
 
   #------------------------------
 

@@ -26,7 +26,13 @@
         </li>
         <% if @current_singer != nil %>
             <li>
-              <a href= <%= "/rooms/#{@current_singer.room.id}" %> >Go to my current room</a>
+              <a href="/songs">SONGS</a>
+            </li>
+            <li>
+              <a href= <%= "/rooms/#{@current_singer.room.id}" %> >Go to my current room (<%= @current_singer.room.id.to_s %>)</a>
+            </li>
+            <li>
+              <a href= <%= "/leave_room" %> >Leave my current room (<%= @current_singer.room.id.to_s %>)</a>
             </li>
         <% end %>
       </ul>

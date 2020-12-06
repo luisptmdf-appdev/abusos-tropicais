@@ -345,6 +345,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    youtube_addy (1.0.4)
     zeitwerk (2.4.0)
 
 PLATFORMS
@@ -373,6 +374,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.2)
   rails_db (= 2.3.1)
+  ransack
   rspec-html-matchers
   rspec-rails
   sassc-rails
@@ -384,6 +386,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   web_git!
   webmock
+  youtube_addy
 
 RUBY VERSION
    ruby 2.6.6p146

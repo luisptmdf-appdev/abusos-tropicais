@@ -1,8 +1,11 @@
 class SongsController < ApplicationController
   def index
-    matching_songs = Song.all
-
-    @list_of_songs = matching_songs.order({ :created_at => :desc })
+    
+    @q = Song.ransack(params[:q])
+    @list_of_songs = @q.result
+    
+    # matching_songs = Song.all
+    # @list_of_songs = matching_songs.order({ :created_at => :desc })
 
     render({ :template => "songs/index.html.erb" })
   end
@@ -21,7 +24,7 @@ class SongsController < ApplicationController
     the_song = Song.new
     the_song.name = params.fetch("query_name")
     the_song.artist = params.fetch("query_artist")
-    the_song.user_id = params.fetch("query_user_id")
+    the_song.user_id = @current_user.id
     the_song.url = params.fetch("query_url")
 
     if the_song.valid?

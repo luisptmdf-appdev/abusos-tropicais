@@ -1,4 +1,8 @@
 class RoomsController < ApplicationController
+  
+  # I want users to create or join a room before other actions
+  skip_before_action(:force_singer_sign_in, { :only => [:index, :create, :join, :re_join] })
+  
   def index
     matching_rooms = Room.all
 
@@ -9,10 +13,47 @@ class RoomsController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-
     matching_rooms = Room.where({ :id => the_id })
-
     @the_room = matching_rooms.at(0)
+
+    @the_songs_queue = @the_room.next_songs
+
+    # Determine if user has entered the page specifically to play a song next and, in that case, sets @autoplay to 1 and updates previous song to played
+    the_next_song_id = params.fetch("query_song_id", nil)
+    play_next_song = params.fetch("query_play_next", nil)
+    if the_next_song_id != nil || play_next_song == "true"
+      @autoplay = 1
+      previous_song_id = session[:previous_song_id]
+      if previous_song_id != nil
+        previous_song = SongsQueue.where({ :id => previous_song_id.to_i }).first
+        # Do I need to update all fields??
+        previous_song.played = true
+        if previous_song.valid?
+          previous_song.save
+        end
+      end
+    else
+      @autoplay = 0
+    end
+
+    # Determine next song to appear in the youtube embedded frame
+    if the_next_song_id == nil
+      if @the_songs_queue.where({ :played => false }) != nil
+        the_next_song = @the_songs_queue.where({ :played => false }).first
+      else
+        # Add notice saying there is no song left unplayed in songs queue
+      end
+    else
+      if @the_songs_queue.where({ :id => the_next_song_id.to_i }) != nil
+        the_next_song = @the_songs_queue.where({ :id => the_next_song_id.to_i }).first
+      else
+        # Add notice saying "failed to find song in songs queue"
+      end
+    end
+
+    # Uses extract_video_id from this gem: https://github.com/datwright/youtube_addy
+    @youtube_video_id = the_next_song.song.url.extract_video_id
+    session[:previous_song_id] = the_next_song.id
 
     render({ :template => "rooms/show.html.erb" })
   end
@@ -32,7 +73,6 @@ class RoomsController < ApplicationController
       the_singer.user_id = @current_user.id
       the_singer.next_songs_count = 0
       the_singer.save
-      # Does this work? Or once I save it, I lose the_singer?
       session[:singer_id] = the_singer.id
 
       redirect_to("/rooms/" + the_room.id.to_s , { :notice => "Room created successfully." })
@@ -82,14 +122,13 @@ class RoomsController < ApplicationController
         the_singer.user_id = @current_user.id
         the_singer.next_songs_count = 0
         the_singer.save
-        # Does this work? Or once I save it, I lose the_singer?
         session[:singer_id] = the_singer.id
         redirect_to("/rooms/" + the_room.id.to_s, { :notice => "Joined room successfully." })
       else
         redirect_to("/rooms", { :alert => "Incorrect room password." })
       end
     else
-      redirect_to("/rooms", { :alert => "Room #{the_room_id} does not exist" })
+      redirect_to("/rooms", { :alert => "Room #{the_room_id} does not exist." })
     end
 
   end
@@ -103,12 +142,18 @@ class RoomsController < ApplicationController
         session[:singer_id] = Singer.where({ :room_id => the_room.id , :user_id => @current_user.id }).at(0).id
         redirect_to("/rooms/#{the_room.id}", { :notice => "Re-joined room successfully." })
       else
-        redirect_to("/rooms", { :alert => "You are still not a singer in room #{the_room.id}" })
+        redirect_to("/rooms", { :alert => "You are still not a singer in room #{the_room.id}." })
       end
     else
-      redirect_to("/rooms", { :alert => "Room #{the_room_id} does not exist" })
+      redirect_to("/rooms", { :alert => "Room #{the_room_id} does not exist." })
     end
 
+  end
+
+  def leave
+    session[:singer_id] = nil
+    session[:previous_song_id] = nil
+    redirect_to("/rooms", { :notice => "You left your room successfully." })
   end
 
 end
