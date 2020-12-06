@@ -24,27 +24,27 @@
 
 <hr>
 
-<div>
+<% if @youtube_video_id != nil %>
+  <%# Copied this from https://developers.google.com/youtube/player_parameters %>
+  <iframe id="ytplayer" type="text/html" width="640" height="360"
+    src= <%= "https://www.youtube.com/embed/" + @youtube_video_id + "?autoplay=" + @autoplay.to_s %>
+    frameborder="0">
+  </iframe>
+
+  <div>
+    <form action= <%="/rooms/#{@the_room.id}"%> method="get">
+      <input type="hidden" name="query_play_next" value= <%= true %> >
+      <button>
+        Play next song
+      </button>
+    </form>
+  </div>
+
+<% else %>
   <h3>
-    Search for a song:
-  </h3>  
-</div>
-
-
-
-<%# Copied this from https://developers.google.com/youtube/player_parameters %>
-<iframe id="ytplayer" type="text/html" width="640" height="360"
-  src= <%= "https://www.youtube.com/embed/" + @youtube_video_id + "?autoplay=" + @autoplay.to_s %>
-  frameborder="0"></iframe>
-
-<div>
-  <form action= <%="/rooms/#{the_room.id}"%> method="post">
-    <input type="hidden" name="query_play_next" value= <%= true %> >
-    <button>
-      Play next song
-    </button>
-  </form>
-</div>
+    No song left unplayed in Songs Queue
+  <h3>
+<% end %>
 
 <hr>
 
@@ -87,7 +87,7 @@
         </td>
 
         <td>
-          <form action= <%="/rooms/#{the_room.id}"%> method="post">
+          <form action= <%="/rooms/#{@the_room.id}"%> method="get">
             <input type="hidden" name="query_song_id" value= <%= a_next_song.id %> >
             <button>
               Play this song next
@@ -100,87 +100,10 @@
   </div>
 </div>
 
-
 <hr>
 
 <div>
-  <div>
-    <div>
-      <a href="/rooms">
-        Go back
-      </a>
-    </div>
-
-    <div>
-      <a href="/delete_room/<%= @the_room.id %>">
-        Delete room
-      </a>
-    </div>
-  </div>
-
-  <dl>
-    <dt>
-      Admin
-    </dt>
-    <dd>
-      <%= @the_room.admin_id %>
-    </dd>
-
-    <dt>
-      Singers count
-    </dt>
-    <dd>
-      <%= @the_room.singers_count %>
-    </dd>
-
-    <dt>
-      Created at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_room.created_at) %> ago
-    </dd>
-
-    <dt>
-      Updated at
-    </dt>
-    <dd>
-      <%= time_ago_in_words(@the_room.updated_at) %> ago
-    </dd>
-  </dl>
+  <h3>
+    <a href="/songs">Look for a song</a>
+  </h3>  
 </div>
-
-
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit room
-    </h2>
-
-    <form action="/modify_room/<%= @the_room.id %>"  method="post" >
-      <div>
-        <label for="admin_id_box">
-          Admin
-        </label>
-
-        <input type="text" id="admin_id_box" name="query_admin_id" value="<%= @the_room.admin_id %>">
-      </div>
-
-      <div>
-        <label for="singers_count_box">
-          Singers count
-        </label>
-
-        <input type="text" id="singers_count_box" name="query_singers_count" value="<%= @the_room.singers_count %>">
-      </div>
-
-      <button>
-        Update room
-      </button>
-    </form>
-  </div>
-</div>
-
-<hr>

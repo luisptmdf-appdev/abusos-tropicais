@@ -11,7 +11,9 @@ class RoomsController < ApplicationController
     render({ :template => "rooms/index.html.erb" })
   end
 
+
   def show
+
     the_id = params.fetch("path_id")
     matching_rooms = Room.where({ :id => the_id })
     @the_room = matching_rooms.at(0)
@@ -51,12 +53,20 @@ class RoomsController < ApplicationController
       end
     end
 
-    # Uses extract_video_id from this gem: https://github.com/datwright/youtube_addy
-    @youtube_video_id = the_next_song.song.url.extract_video_id
-    session[:previous_song_id] = the_next_song.id
+    if the_next_song != nil
+      the_next_song_url = the_next_song.song.url
+      if the_next_song_url[-1] == "#"
+        the_next_song_url = the_next_song_url.delete_suffix("#")
+      end
+      # Uses extract_video_id from this gem: https://github.com/datwright/youtube_addy
+      @youtube_video_id = YouTubeAddy.extract_video_id(the_next_song_url)
+      session[:previous_song_id] = the_next_song.id
+    end
 
     render({ :template => "rooms/show.html.erb" })
+
   end
+
 
   def create
     the_room = Room.new
