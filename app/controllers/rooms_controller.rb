@@ -43,13 +43,13 @@ class RoomsController < ApplicationController
       if @the_songs_queue.where({ :played => false }) != nil
         the_next_song = @the_songs_queue.where({ :played => false }).first
       else
-        # Add notice saying there is no song left unplayed in songs queue
+        flash.now[:notice] = 'There is no song left unplayed in songs queue'
       end
     else
       if @the_songs_queue.where({ :id => the_next_song_id.to_i }) != nil
         the_next_song = @the_songs_queue.where({ :id => the_next_song_id.to_i }).first
       else
-        # Add notice saying "failed to find song in songs queue"
+        flash.now[:alert] = 'Failed to find song in songs queue'
       end
     end
 
