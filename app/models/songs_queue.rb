@@ -22,7 +22,4 @@ class SongsQueue < ApplicationRecord
   validates(:song_id, { :presence => true })
   validates(:singer_id, { :presence => true })
   
-  ## Removed the following for issue with defining variable to false...
-  # validates(:played, { :presence => true })
-
 end

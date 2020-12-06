@@ -42,14 +42,6 @@ Rails.application.routes.draw do
   
   get("/rooms/:path_id", { :controller => "rooms", :action => "show" })
   
-  ###########################
-  # UPDATE
-  # post("/modify_room/:path_id", { :controller => "rooms", :action => "update" })
-  
-  # DELETE
-  # get("/delete_room/:path_id", { :controller => "rooms", :action => "destroy" })
-  ###########################
-  
   # JOIN
   post("/join_room", { :controller => "rooms", :action => "join" })
 
@@ -61,45 +53,11 @@ Rails.application.routes.draw do
 
   #------------------------------
 
-  # Routes for the Singer resource:
-
-  ###########################
-  # CREATE
-  # post("/insert_singer", { :controller => "singers", :action => "create" })
-          
-  # READ
-  # get("/singers", { :controller => "singers", :action => "index" })
-  
-  # get("/singers/:path_id", { :controller => "singers", :action => "show" })
-  
-  # UPDATE
-  
-  # post("/modify_singer/:path_id", { :controller => "singers", :action => "update" })
-  
-  # DELETE
-  # get("/delete_singer/:path_id", { :controller => "singers", :action => "destroy" })
-  ###########################
-
-  #------------------------------
-
   # Routes for the Songs queue resource:
 
   # CREATE
   post("/insert_songs_queue", { :controller => "songs_queues", :action => "create" })
           
-  ###########################
-  # READ
-  # get("/songs_queues", { :controller => "songs_queues", :action => "index" })
-  
-  # get("/songs_queues/:path_id", { :controller => "songs_queues", :action => "show" })
-  
-  # UPDATE
-  # post("/modify_songs_queue/:path_id", { :controller => "songs_queues", :action => "update" })
-  
-  # DELETE
-  # get("/delete_songs_queue/:path_id", { :controller => "songs_queues", :action => "destroy" })
-  ###########################
-
   #------------------------------
 
   # Routes for the Song resource:
@@ -110,14 +68,6 @@ Rails.application.routes.draw do
   # READ
   get("/songs", { :controller => "songs", :action => "index" })
   
-  # get("/songs/:path_id", { :controller => "songs", :action => "show" })
-  
-  # UPDATE
-  # post("/modify_song/:path_id", { :controller => "songs", :action => "update" })
-  
-  # DELETE
-  # get("/delete_song/:path_id", { :controller => "songs", :action => "destroy" })
-
   #------------------------------
 
 end
